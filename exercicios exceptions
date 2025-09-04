@@ -1,0 +1,143 @@
+# 1. Tratando entrada de número inteiro
+print("\n1. Tratando entrada de número inteiro")
+print("-" * 40)
+try:
+    numero = int(input("Digite um número inteiro: "))
+    print(f"Você digitou: {numero}")
+except ValueError:
+    print("Erro: Você deve digitar um número inteiro válido!")
+
+# 2. Multiplicação com tratamento de erro
+print("\n2. Multiplicação com tratamento de erro")
+print("-" * 40)
+try:
+    num1 = float(input("Digite o primeiro número: "))
+    num2 = float(input("Digite o segundo número: "))
+    resultado = num1 * num2
+    print(f"Resultado da multiplicação: {resultado}")
+except ValueError:
+    print("Erro: Digite apenas números válidos!")
+
+# 3. Conversão com bloco else
+print("\n3. Conversão com bloco else")
+print("-" * 40)
+try:
+    numero = int(input("Digite um número inteiro: "))
+except ValueError:
+    print("Erro: Digite um número inteiro válido!")
+else:
+    print(f"Conversão bem-sucedida! Número digitado: {numero}")
+
+# 4. Abrir arquivo com finally
+print("\n4. Abrir arquivo com finally")
+print("-" * 40)
+try:
+    arquivo = open("dados.txt", "r")
+    conteudo = arquivo.read()
+    print("Arquivo aberto com sucesso!")
+    arquivo.close()
+except FileNotFoundError:
+    print("Arquivo não encontrado!")
+finally:
+    print("Encerrando programa")
+
+# 5. Função dividir com raise
+print("\n5. Função dividir com raise")
+print("-" * 40)
+def dividir(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Não é possível dividir por zero!")
+    return a / b
+
+try:
+    resultado = dividir(10, 2)
+    print(f"Resultado: {resultado}")
+    resultado = dividir(10, 0) # Isso vai lançar a exceção
+except ZeroDivisionError as e:
+    print(f"Erro: {e}")
+
+# 6. Exceção personalizada IdadeInvalidaError
+print("\n6. Exceção personalizada IdadeInvalidaError")
+print("-" * 40)
+class IdadeInvalidaError(Exception):
+    """Exceção personalizada para idade inválida"""
+    pass
+
+def cadastrar_idade(idade):
+    if idade < 0:
+        raise IdadeInvalidaError("Idade não pode ser negativa!")
+    return f"Idade {idade} cadastrada com sucesso!"
+
+try:
+    print(cadastrar_idade(25))
+    print(cadastrar_idade(-5)) # Isso vai lançar a exceção
+except IdadeInvalidaError as e:
+    print(f"Erro: {e}")
+
+# 7. Divisão com tratamento de múltiplos erros
+print("\n7. Divisão com tratamento de múltiplos erros")
+print("-" * 40)
+try:
+    num1 = float(input("Digite o primeiro número: "))
+    num2 = float(input("Digite o segundo número: "))
+    resultado = num1 / num2
+    print(f"Resultado da divisão: {resultado}")
+except ValueError:
+    print("Erro: Digite apenas números válidos!")
+except ZeroDivisionError:
+    print("Erro: Não é possível dividir por zero!")
+
+# 8. Verificar número par com try-else-finally
+print("\n8. Verificar número par com try-else-finally")
+print("-" * 40)
+try:
+    numero = int(input("Digite um número inteiro: "))
+except ValueError:
+    print("Erro: Digite um número inteiro válido!")
+else:
+    if numero % 2 == 0:
+        print(f"{numero} é par")
+    else:
+        print(f"{numero} é ímpar")
+finally:
+    print("Fim do programa")
+
+# 9. Função sacar com exceção personalizada
+print("\n9. Função sacar com exceção personalizada")
+print("-" * 40)
+class SaldoInsuficienteError(Exception):
+    """Exceção para quando o saldo é insuficiente"""
+    pass
+
+def sacar(saldo, valor):
+    if valor > saldo:
+        raise SaldoInsuficienteError(
+            f"Saldo insuficiente! Saldo atual: R${saldo:.2f}, "
+            f"Valor solicitado: R${valor:.2f}"
+        )
+    return saldo - valor
+
+# Testando a função
+saldo_atual = 1000.00
+print(f"Saldo atual: R${saldo_atual:.2f}")
+
+try:
+    valor_saque = float(input("Digite o valor que deseja sacar: R$"))
+    
+    if valor_saque <= 0:
+        print("Valor de saque deve ser positivo!")
+    else:
+        novo_saldo = sacar(saldo_atual, valor_saque)
+        print(f"Saque realizado com sucesso!")
+        print(f"Novo saldo: R${novo_saldo:.2f}")
+        
+except ValueError:
+    print("Erro: Digite um valor numérico válido!")
+except SaldoInsuficienteError as e:
+    print(f"Erro: {e}")
+except Exception as e:
+    print(f"Erro inesperado: {e}")
+
+print("\n" + "="*50)
+print("PROGRAMA FINALIZADO!")
+print("="*50)
